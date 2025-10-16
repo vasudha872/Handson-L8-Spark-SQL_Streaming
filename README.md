@@ -96,6 +96,12 @@ By the end of this assignment, you should be able to:
 3. Parse the JSON payload into columns.
 4. Print the parsed data to the console (using .writeStream.format("console")).
 
+
+## **Sample output:**
+  ```bash
+    trip_id,driver_id,distance_km,fare_amount,timestamp
+    576e2f8a-5230-41f6-90ce-194938b3dcd3,71,27.59,79.62,2025-10-15 02:37:12
+  ```
 ---
 
 ## **Task 2: Real-Time Aggregations (Driver-Level)**
@@ -112,6 +118,23 @@ By the end of this assignment, you should be able to:
 4. AVG(distance_km) as avg_distance
 5. Store the result in csv
 
+## **Sample output:**
+```bash
+    driver_id,total_fare,avg_distance
+    7,572.29,27.049999999999994
+    51,307.34000000000003,19.485
+    15,275.52,35.5125
+    54,311.78,33.1175
+    11,400.87,29.120000000000005
+    29,490.9799999999999,17.082
+    69,221.07999999999998,30.796666666666667
+    42,363.01,27.571999999999996
+    87,197.68,28.13
+    73,375.53999999999996,34.88333333333333
+    64,8.63,11.1
+
+ ```
+
 ---
 
 ## **Task 3: Windowed Time-Based Analytics**
@@ -125,15 +148,13 @@ By the end of this assignment, you should be able to:
 2. Use Spark’s window function to aggregate over a 5-minute window, sliding by 1 minute, for the sum of fare_amount.
 3. Output the windowed results to csv.
 
----
-
-## 📬 Submission Checklist
-
-- [ ] Python scripts 
-- [ ] Output files in the `outputs/` directory  
-- [ ] Completed `README.md`  
-- [ ] Commit everything to GitHub Classroom  
-- [ ] Submit your GitHub repo link on canvas
+## **Sample output:**
+```bash
+    window_start,window_end,sum_fare
+    2025-10-16T03:05:00.000Z,2025-10-16T03:10:00.000Z,22629.35
+    
+ ```
 
 ---
+
 

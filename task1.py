@@ -5,6 +5,8 @@ from pyspark.sql.types import StructType, StructField, StringType, DoubleType, T
 # Create a Spark session
 spark = SparkSession.builder.appName("RideSharingAnalytics").getOrCreate()
 
+
+
 # Define the schema for incoming JSON data
 schema = StructType([
     StructField("trip_id", StringType(), True),
@@ -15,9 +17,24 @@ schema = StructType([
 ])
 
 # Read streaming data from socket
-
+lines = spark.readStream \
+    .format("socket") \
+    .option("host", "localhost") \
+    .option("port", 9999) \
+    .load()
 # Parse JSON data into columns using the defined schema
+parsed_data = lines.select(
+    from_json(col("value"), schema).alias("data")
+).select("data.*")
+
 
 # Print parsed data to the CSV files
+query = parsed_data.writeStream \
+    .outputMode("append") \
+    .format("csv") \
+    .option("path", "outputs/task_1") \
+    .option("checkpointLocation", "outputs/task_1/checkpoint") \
+    .option("header", True) \
+    .start()
 
 query.awaitTermination()
